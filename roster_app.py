@@ -86,11 +86,9 @@ class RosterApp(object):
 		self.clear_screen()
 		if __debug__:
 			print('print_roster() method called...')
-			team_roster_file = open('updated_info.json', 'r')
-			data = json.load(team_roster_file)
-			for i in data:
-				print(i)
-			team_roster_file.close()
+			with open('team_roster.json', 'r') as self.team_roster_file:
+				self.roster_to_print = json.load(self.team_roster_file)
+			print(self.roster_to_print)
 		
 
 
@@ -105,6 +103,14 @@ class RosterApp(object):
 	def add_members(self):
 		"""Add items to roster."""
 		self.clear_screen()
+		self.file = open('team_roster.json', 'r')
+		self.member_data = json.load(self.file)
+		self.member_name = input("Input your new member's name: ")
+		self.member_age = input("Input your new member's age:")
+		self.member_data['members'] = {'name': self.member_name, 'age': self.member_age}
+		self.file.close()
+			
+
 		if __debug__:
 			print('print_roster() method called...')
 
